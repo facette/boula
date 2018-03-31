@@ -1,0 +1,38 @@
+{
+  "name": "boula",
+  "version": "0.1.0",
+  "description": "Facette time series charts library",
+  "author": {
+    "name": "Vincent Batoufflet",
+    "email": "vincent@batoufflet.info"
+  },
+  "license": "BSD-3-Clause",
+  "homepage": "https://facette.io/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/facette/boula.git"
+  },
+  "main": "dist/boula.js",
+  "module": "src/index",
+  "dependencies": {
+    "d3": "5.0.0"
+  },
+  "devDependencies": {
+    "babel-core": "6.26.0",
+    "babel-eslint": "8.2.2",
+    "babel-plugin-transform-object-rest-spread": "6.26.0",
+    "babel-preset-env": "1.6.1",
+    "eslint": "4.19.1",
+    "lodash.merge": "4.6.1",
+    "package-preamble": "0.1.0",
+    "rollup": "0.57.1",
+    "rollup-plugin-babel": "3.0.3",
+    "rollup-plugin-commonjs": "9.1.0",
+    "rollup-plugin-node-resolve": "3.3.0",
+    "uglify-js": "3.3.17"
+  },
+  "scripts": {
+    "build": "rm -rf dist && rollup --banner=\"$(preamble)\" -c && uglifyjs --comments \"/Copyright/\" --source-map -c -m -o dist/boula.min.js dist/boula.js",
+    "release": "yarn build && zip -j dist/boula.zip CHANGES LICENSE README.md dist/boula.js dist/boula.min.js dist/boula.min.js.map"
+  }
+}
