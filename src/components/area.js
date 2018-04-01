@@ -11,6 +11,11 @@ export default function(Chart) {
                 height: this.height - 2 * this.config.margin,
                 width: this.width - 2 * this.config.margin,
             };
+
+            if (this.config.axes.y.label.text) {
+                this.area.left += this.config.margin;
+                this.area.width -= this.config.margin;
+            }
         },
 
         beforeDraw() {

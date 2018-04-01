@@ -15,6 +15,10 @@ const defaultConfig = {
         },
         y: {
             center: false,
+            label: {
+                size: 12,
+                text: null,
+            },
             max: null,
             min: null,
             stack: false,
