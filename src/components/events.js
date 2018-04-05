@@ -5,7 +5,7 @@ export default function(Chart) {
                 return;
             }
 
-            ["mouseenter", "mouseleave", "mousemove"].forEach((event) => {
+            ["mousedown", "mouseup", "mouseenter", "mouseleave", "mousemove"].forEach((event) => {
                 this.canvas.removeEventListener(event, this.config.events.handleEvent);
             });
         },
@@ -15,7 +15,7 @@ export default function(Chart) {
                 return;
             }
 
-            ["mouseenter", "mouseleave", "mousemove"].forEach((event) => {
+            ["mousedown", "mouseup", "mouseenter", "mouseleave", "mousemove"].forEach((event) => {
                 this.canvas.addEventListener(event, this.config.events.handleEvent.bind(this));
             });
         },
