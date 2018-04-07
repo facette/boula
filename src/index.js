@@ -1,9 +1,11 @@
 import Chart from "./chart";
 
+import {defaultConfig} from "./config";
 import helpers from "./helpers";
 import components from "./components/index";
 
 Chart.helpers = helpers;
+Chart.colors = defaultConfig.colors;
 Chart.components = components;
 
 import area from "./components/area";
