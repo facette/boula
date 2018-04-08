@@ -33,13 +33,19 @@ Object.assign(Chart.prototype, {
     update(config) {
         this.config = merge({}, defaultConfig, config);
 
-        // Get font defaults from body style
+        // Get defaults from body style
+        let style = getComputedStyle(document.body);
+
+        if (this.config.background.color === null) {
+            this.config.background.color = style.backgroundColor;
+        }
+
         if (this.config.font.color === null) {
-            this.config.font.color = getComputedStyle(document.body).color;
+            this.config.font.color = style.color;
         }
 
         if (this.config.font.family === null) {
-            this.config.font.family = getComputedStyle(document.body).fontFamily;
+            this.config.font.family = style.fontFamily;
         }
 
         // Initialize canvas

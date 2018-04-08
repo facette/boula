@@ -2,7 +2,10 @@ export default function(Chart) {
     Chart.components.register({
         layout() {
             // Clear canvas
+            this.ctx.fillStyle = this.config.background.color;
             this.ctx.clearRect(0, 0, this.width, this.height);
+            this.ctx.rect(0, 0, this.width, this.height);
+            this.ctx.fill();
 
             // Set base area position
             this.area = {
