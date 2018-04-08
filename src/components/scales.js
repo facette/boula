@@ -21,13 +21,13 @@ export default function(Chart) {
 
             this.xFormat = (date) => {
                 return (
-                    d3.timeSecond(date) < date ? d3.timeFormat(".%L")
-                        : d3.timeMinute(date) < date ? d3.timeFormat(":%S")
-                            : d3.timeHour(date) < date ? d3.timeFormat("%H:%M")
-                                : d3.timeDay(date) < date ? d3.timeFormat("%H:00")
-                                    : d3.timeMonth(date) < date ? d3.timeFormat("%a %d")
-                                        : d3.timeYear(date) < date ? d3.timeFormat("%B")
-                                            : d3.timeFormat("%Y")
+                    d3.timeSecond(date) < date ? d3.timeFormat(".%L") :
+                    d3.timeMinute(date) < date ? d3.timeFormat(":%S") :
+                    d3.timeHour(date) < date ? d3.timeFormat("%H:%M") :
+                    d3.timeDay(date) < date ? d3.timeFormat("%H:00") :
+                    d3.timeMonth(date) < date ? d3.timeFormat("%a %d") :
+                    d3.timeYear(date) < date ? d3.timeFormat("%B") :
+                    d3.timeFormat("%Y")
                 )(date);
             };
         },

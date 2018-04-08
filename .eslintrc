@@ -35,7 +35,10 @@
     ],
     "indent": [
       "error",
-      4
+      4,
+      {
+        "flatTernaryExpressions": true
+      }
     ],
     "no-console": [
       "error",
