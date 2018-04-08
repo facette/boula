@@ -45,6 +45,9 @@ export default function(Chart) {
                 this.ctx.strokeStyle = line.color || Chart.helpers.toRGBA(this.config.font.color, 0.1);
 
                 this.ctx.beginPath();
+                if (line.dashed) {
+                    this.ctx.setLineDash([4, 4]);
+                }
                 this.ctx.moveTo(0, pos);
                 this.ctx.lineTo(this.area.width, pos);
                 this.ctx.stroke();
