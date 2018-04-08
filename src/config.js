@@ -19,6 +19,7 @@ const defaultConfig = {
                 size: 12,
                 text: null,
             },
+            lines: [],
             max: null,
             min: null,
             stack: false,
