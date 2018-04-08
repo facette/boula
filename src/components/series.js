@@ -17,8 +17,11 @@ export default function(Chart) {
                 .y(a => this.yScale(a.y1))
                 .context(this.ctx);
 
+            let top = this.config.axes.y.max ? this.yScale(this.config.axes.y.max) : 0,
+                bottom = (this.config.axes.y.min ? this.yScale(this.config.axes.y.min) : this.area.height) - top;
+
             this.ctx.save();
-            this.ctx.rect(0, 0, this.area.width, this.area.height);
+            this.ctx.rect(0, top, this.area.width, bottom);
             this.ctx.clip();
 
             this.data.forEach((datum, idx) => {
