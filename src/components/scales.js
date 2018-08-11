@@ -39,13 +39,21 @@ export default function(Chart) {
             if (this.config.axes[axis].min !== null) {
                 min = this.config.axes[axis].min;
             } else {
-                min = d3.min(this.data, a => d3.min(a, b => b[key]));
+                min = d3.min(this.data, (datum, idx) => {
+                    if (!this.config.series[idx].disabled) {
+                        return d3.min(datum, a => a[key]);
+                    }
+                });
             }
 
             if (this.config.axes[axis].max !== null) {
                 max = this.config.axes[axis].max;
             } else {
-                max = d3.max(this.data, a => d3.max(a, b => b[key]));
+                max = d3.max(this.data, (datum, idx) => {
+                    if (!this.config.series[idx].disabled) {
+                        return d3.max(datum, a => a[key]);
+                    }
+                });
             }
 
             if (axis == "y") {

@@ -5,6 +5,7 @@ export default function(Chart) {
         init() {
             Object.assign(this, {
                 highlightSeries: component._highlight,
+                toggleSeries: component._toggle,
             });
         },
 
@@ -31,6 +32,10 @@ export default function(Chart) {
             this.ctx.clip();
 
             this.data.forEach((datum, idx) => {
+                if (this.config.series[idx].disabled) {
+                    return;
+                }
+
                 let fade = typeof this.config.series[idx]._fade == "boolean" ? this.config.series[idx]._fade : false;
 
                 if (!this.config.series[idx].color) {
@@ -60,6 +65,15 @@ export default function(Chart) {
             });
 
             this._highlight = state;
+            this.draw();
+        },
+
+        _toggle(idx, state = null) {
+            if (idx >= this.config.series.length) {
+                return;
+            }
+
+            this.config.series[idx].disabled = typeof state == "boolean" ? !state : !this.config.series[idx].disabled;
             this.draw();
         },
     };
