@@ -1,17 +1,10 @@
 import * as d3 from "d3";
 
 export default function(Chart) {
-    Chart.components.register({
+    let component = {
         init() {
             Object.assign(this, {
-                highlightSeries(idx, state) {
-                    this.config.series.forEach((series, i) => {
-                        series.fade = i !== idx ? state : false;
-                    });
-
-                    this._highlight = state;
-                    this.draw();
-                },
+                highlightSeries: component._highlight,
             });
         },
 
@@ -38,7 +31,7 @@ export default function(Chart) {
             this.ctx.clip();
 
             this.data.forEach((datum, idx) => {
-                let fade = typeof this.config.series[idx].fade == "boolean" ? this.config.series[idx].fade : false;
+                let fade = typeof this.config.series[idx]._fade == "boolean" ? this.config.series[idx]._fade : false;
 
                 if (!this.config.series[idx].color) {
                     this.config.series[idx].color = this.config.colors[idx % this.config.colors.length];
@@ -60,5 +53,16 @@ export default function(Chart) {
 
             this.ctx.restore();
         },
-    });
+
+        _highlight(idx, state) {
+            this.config.series.forEach((series, i) => {
+                series._fade = i !== idx ? state : false;
+            });
+
+            this._highlight = state;
+            this.draw();
+        },
+    };
+
+    Chart.components.register(component);
 }

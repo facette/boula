@@ -1,19 +1,9 @@
 export default function(Chart) {
-    Chart.components.register({
+    let component = {
         init() {
             Object.assign(this, {
-                addLine(id, line) {
-                    this.config.axes.y.lines.push(Object.assign(line, {id}));
-                    this.draw();
-                },
-
-                removeLine(id) {
-                    let length = this.config.axes.y.lines.length;
-                    this.config.axes.y.lines = this.config.axes.y.lines.filter(a => a.id !== id);
-                    if (this.config.axes.y.lines.length !== length) {
-                        this.draw();
-                    }
-                },
+                addLine: component._add,
+                removeLine: component._remove,
             });
         },
 
@@ -86,5 +76,22 @@ export default function(Chart) {
 
             this.ctx.restore();
         },
-    });
+
+        _add(id, line) {
+            this.config.axes.y.lines.push(Object.assign(line, {id}));
+            this.draw();
+        },
+
+        _remove(id) {
+            let length = this.config.axes.y.lines.length;
+
+            this.config.axes.y.lines = this.config.axes.y.lines.filter(a => a.id !== id);
+
+            if (this.config.axes.y.lines.length !== length) {
+                this.draw();
+            }
+        },
+    };
+
+    Chart.components.register(component);
 }
