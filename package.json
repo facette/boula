@@ -33,6 +33,7 @@
   },
   "scripts": {
     "build": "rm -rf dist && rollup --banner=\"$(preamble)\" -c && uglifyjs --comments \"/Copyright/\" --source-map -c -m -o dist/boula.min.js dist/boula.js",
+    "lint": "eslint --ext .js --fix src/",
     "release": "yarn build && zip -j dist/boula.zip CHANGES LICENSE README.md dist/boula.js dist/boula.min.js dist/boula.min.js.map"
   }
 }

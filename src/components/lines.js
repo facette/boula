@@ -10,7 +10,7 @@ export default function(Chart) {
                 let pos = this.yScale(line.y);
 
                 if (line.label) {
-                    let text = this.yFormat(line.y),
+                    let text = typeof line.label == "boolean" ? this.yFormat(line.y) : line.label,
                         measure = this.ctx.measureText(text);
 
                     let delta = 6,
