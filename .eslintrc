@@ -72,6 +72,9 @@
     "space-before-function-paren": [
       "error",
       "never"
+    ],
+    "space-infix-ops": [
+      "error"
     ]
   }
 }
