@@ -3,6 +3,7 @@ import * as d3 from "d3";
 import merge from "lodash/merge";
 
 function Chart(config) {
+    Chart.components.execute.call(this, "init");
     this.update(config);
     return this;
 }

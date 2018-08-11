@@ -2,6 +2,19 @@ import * as d3 from "d3";
 
 export default function(Chart) {
     Chart.components.register({
+        init() {
+            Object.assign(this, {
+                highlightSeries(idx, state) {
+                    this.config.series.forEach((series, i) => {
+                        series.fade = i !== idx ? state : false;
+                    });
+
+                    this._highlight = state;
+                    this.draw();
+                },
+            });
+        },
+
         draw() {
             let area;
             if (this.config.type == "area") {
@@ -25,11 +38,13 @@ export default function(Chart) {
             this.ctx.clip();
 
             this.data.forEach((datum, idx) => {
+                let fade = typeof this.config.series[idx].fade == "boolean" ? this.config.series[idx].fade : false;
+
                 if (!this.config.series[idx].color) {
                     this.config.series[idx].color = this.config.colors[idx % this.config.colors.length];
                 }
 
-                if (this.config.type == "area") {
+                if (this.config.type == "area" && !this._highlight) {
                     this.ctx.beginPath();
                     area(datum);
                     this.ctx.fillStyle = Chart.helpers.toRGBA(this.config.series[idx].color, 0.65);
@@ -38,7 +53,7 @@ export default function(Chart) {
 
                 this.ctx.beginPath();
                 line(datum);
-                this.ctx.strokeStyle = this.config.series[idx].color;
+                this.ctx.strokeStyle = Chart.helpers.toRGBA(this.config.series[idx].color, fade ? 0.1 : 1);
                 this.ctx.lineWidth = 1.5;
                 this.ctx.stroke();
             });
