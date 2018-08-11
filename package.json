@@ -15,21 +15,21 @@
   "main": "dist/boula.js",
   "module": "src/index",
   "dependencies": {
-    "d3": "5.0.0"
+    "d3": "5.5.0"
   },
   "devDependencies": {
-    "babel-core": "6.26.0",
-    "babel-eslint": "8.2.2",
+    "babel-core": "6.26.3",
+    "babel-eslint": "8.2.6",
     "babel-plugin-transform-object-rest-spread": "6.26.0",
-    "babel-preset-env": "1.6.1",
-    "eslint": "4.19.1",
+    "babel-preset-env": "1.7.0",
+    "eslint": "5.3.0",
     "lodash.merge": "4.6.1",
     "package-preamble": "0.1.0",
-    "rollup": "0.57.1",
-    "rollup-plugin-babel": "3.0.3",
-    "rollup-plugin-commonjs": "9.1.0",
+    "rollup": "0.64.1",
+    "rollup-plugin-babel": "3.0.7",
+    "rollup-plugin-commonjs": "9.1.5",
     "rollup-plugin-node-resolve": "3.3.0",
-    "uglify-js": "3.3.17"
+    "uglify-js": "3.4.7"
   },
   "scripts": {
     "build": "rm -rf dist && rollup --banner=\"$(preamble)\" -c && uglifyjs --comments \"/Copyright/\" --source-map -c -m -o dist/boula.min.js dist/boula.js",
