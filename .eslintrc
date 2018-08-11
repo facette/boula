@@ -1,5 +1,6 @@
 {
   "env": {
+    "browser": true,
     "es6": true
   },
   "extends": [
@@ -41,7 +42,7 @@
       }
     ],
     "no-console": [
-      "error",
+      "warn",
       {
         "allow": ["error", "warn"]
       }
