@@ -1,6 +1,14 @@
 CHANGES
 =======
 
+0.3.0 (2018-08-12)
+------------------
+
+* Add background color support
+* Add series toggle and highlight support
+* Add Y-Axis lines support
+* Minor improvements
+
 0.2.0 (2018-04-06)
 ------------------
 
