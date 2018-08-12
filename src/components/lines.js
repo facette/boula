@@ -62,6 +62,8 @@ export default function(Chart) {
                 }
 
                 // Draw line
+                this.ctx.save();
+
                 this.ctx.lineWidth = 1;
                 this.ctx.strokeStyle = line.color;
 
@@ -72,6 +74,8 @@ export default function(Chart) {
                 this.ctx.moveTo(xDelta > 0 ? xDelta : 0, pos);
                 this.ctx.lineTo(this.area.width, pos);
                 this.ctx.stroke();
+
+                this.ctx.restore();
             });
 
             this.ctx.restore();
