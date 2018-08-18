@@ -1,6 +1,11 @@
 CHANGES
 =======
 
+0.3.1 (2018-08-18)
+------------------
+
+* Fix series dashed style persistency issue
+
 0.3.0 (2018-08-12)
 ------------------
 
