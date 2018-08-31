@@ -36,8 +36,8 @@ const defaultConfig = {
         color: null,
     },
     colors: [
-        "#7cb5ec", "#434348", "#90ed7d", "#f7a35c", "#8085e9",
-        "#f15c80", "#e4d354", "#8085e8", "#8d4653", "#91e8e1",
+        "#64b5f6", "#455a64", "#aed581", "#ffb74d", "#9575cd", "#f06292",
+        "#ffd54f", "#4db6ac", "#4dd0e1", "#e57373", "#7986cb", "#a1887f",
     ],
     events: {
         afterDraw: null,
