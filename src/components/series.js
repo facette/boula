@@ -4,8 +4,7 @@ export default function(Chart) {
     let component = {
         init() {
             Object.assign(this, {
-                highlightSeries: component._highlight,
-                toggleSeries: component._toggle,
+                selectSeries: component._select,
             });
         },
 
@@ -36,8 +35,6 @@ export default function(Chart) {
                     return;
                 }
 
-                let fade = typeof this.config.series[idx]._fade == "boolean" ? this.config.series[idx]._fade : false;
-
                 if (!this.config.series[idx].color) {
                     this.config.series[idx].color = this.config.colors[idx % this.config.colors.length];
                 }
@@ -51,7 +48,7 @@ export default function(Chart) {
 
                 this.ctx.beginPath();
                 line(datum);
-                this.ctx.strokeStyle = Chart.helpers.toRGBA(this.config.series[idx].color, fade ? 0.1 : 1);
+                this.ctx.strokeStyle = this.config.series[idx].color;
                 this.ctx.lineWidth = 1.5;
                 this.ctx.stroke();
             });
@@ -59,21 +56,24 @@ export default function(Chart) {
             this.ctx.restore();
         },
 
-        _highlight(idx, state) {
-            this.config.series.forEach((series, i) => {
-                series._fade = i !== idx ? state : false;
-            });
-
-            this._highlight = state;
-            this.draw();
-        },
-
-        _toggle(idx, state = null) {
+        _select(idx, toggle = false) {
             if (idx >= this.config.series.length) {
                 return;
             }
 
-            this.config.series[idx].disabled = typeof state == "boolean" ? !state : !this.config.series[idx].disabled;
+            if (!toggle) {
+                let state = null;
+                if (this.config.series.filter(a => !a.disabled).length == 1 && !this.config.series[idx].disabled) {
+                    state = false;
+                }
+
+                this.config.series.forEach((series, seriesIdx) => {
+                    series.disabled = state !== null ? state : seriesIdx !== idx;
+                });
+            } else {
+                this.config.series[idx].disabled = !this.config.series[idx].disabled;
+            }
+
             this.draw();
         },
     };
