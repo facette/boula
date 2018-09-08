@@ -12,6 +12,10 @@ export default function(Chart) {
                 this.config.series.forEach((series) => {
                     if (series.points) {
                         series.points.forEach((point) => {
+                            if (series.disabled) {
+                                return;
+                            }
+
                             let date = point[0] * 1000;
                             if (!data[date]) {
                                 data[date] = {date: date};
