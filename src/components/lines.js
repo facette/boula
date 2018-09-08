@@ -17,6 +17,11 @@ export default function(Chart) {
                 let pos = this.yScale(line.y),
                     xDelta = 0;
 
+                // Skip lines outside of area
+                if (pos < 0) {
+                    return;
+                }
+
                 if (!line.color) {
                     line.color = this.config.font.color;
                 }
