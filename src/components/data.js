@@ -29,7 +29,12 @@ export default function(Chart) {
                 });
 
                 if (this.config.axes.y.stack == "percent") {
-                    // TODO: reimplement percent
+                    Object.keys(data).forEach((date) => {
+                        let keys = Object.keys(data[date]),
+                            sum = keys.reduce((sum, key) => { return key != "date" ? sum + data[date][key] : sum; }, 0);
+
+                        keys.forEach((key) => { if (key != "date" && sum != 0) { data[date][key] /= sum; } });
+                    });
                 }
 
                 let stack = d3.stack()
