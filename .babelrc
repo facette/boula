@@ -1,10 +1,10 @@
 {
   "plugins": [
-    "transform-object-rest-spread"
+    "@babel/syntax-object-rest-spread"
   ],
   "presets": [
     [
-      "env",
+      "@babel/env",
       {
         "modules": false
       }
