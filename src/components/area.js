@@ -1,11 +1,14 @@
 export default function(Chart) {
-    Chart.components.register({
+    let component = {
+        init() {
+            Object.assign(this, {
+                clear: component._clear,
+            });
+        },
+
         layout() {
             // Clear canvas
-            this.ctx.fillStyle = this.config.background.color;
-            this.ctx.clearRect(0, 0, this.width, this.height);
-            this.ctx.rect(0, 0, this.width, this.height);
-            this.ctx.fill();
+            component._clear.call(this);
 
             // Set base area position
             this.area = {
@@ -46,5 +49,14 @@ export default function(Chart) {
 
             this.ctx.stroke();
         },
-    });
+
+        _clear() {
+            this.ctx.fillStyle = this.config.background.color;
+            this.ctx.clearRect(0, 0, this.width, this.height);
+            this.ctx.rect(0, 0, this.width, this.height);
+            this.ctx.fill();
+        },
+    };
+
+    Chart.components.register(component);
 }
