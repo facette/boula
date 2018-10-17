@@ -1,6 +1,11 @@
 CHANGES
 =======
 
+0.4.1 (2018-10-17)
+------------------
+
+* Fix draw issue with zero/null series values
+
 0.4.0 (2018-09-11)
 ------------------
 
