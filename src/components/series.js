@@ -12,7 +12,7 @@ export default function(Chart) {
             let area;
             if (this.config.type == "area") {
                 area = d3.area()
-                    .defined(a => a.y1 !== null)
+                    .defined(a => a.y1)
                     .x(a => this.xScale(a.x))
                     .y0(a => this.yScale(a.y0 || 0))
                     .y1(a => this.yScale(a.y1))
@@ -20,7 +20,7 @@ export default function(Chart) {
             }
 
             let line = d3.line()
-                .defined(a => a.y1 !== null)
+                .defined(a => a.y1)
                 .x(a => this.xScale(a.x))
                 .y(a => this.yScale(a.y1))
                 .context(this.ctx);
