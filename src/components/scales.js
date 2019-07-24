@@ -58,7 +58,7 @@ export default function(Chart) {
 
             if (axis == "y") {
                 // Start Y axis at zero
-                if (min > 0) {
+                if (min > 0 && !this.config.axes.y.min) {
                     min = 0;
                 }
 
