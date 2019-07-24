@@ -1,6 +1,11 @@
 CHANGES
 =======
 
+0.4.2 (2019-07-24)
+------------------
+
+* Don't start Y axis at zero when min value is set
+
 0.4.1 (2018-10-17)
 ------------------
 
