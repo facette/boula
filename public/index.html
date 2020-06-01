@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boula</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #fff;
+            color: #222;
+            font-family: "Roboto", serif;
+            font-size: 14px;
+            margin: 0;
+        }
+
+        body.dark {
+            background-color: #222;
+            color: #eee;
+        }
+
+        main {
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            justify-content: center;
+            margin: 0 auto;
+            width: 800px;
+        }
+
+        #chart {
+            height: 300px;
+            margin: 1rem;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body class="dark">
+    <main>
+        <div id="chart"></div>
+    </main>
+
+    <script src="node_modules/d3/dist/d3.js"></script>
+    <script src="boula.js"></script>
+    <script>
+        const formatDate = d3.timeFormat("%a %e %b, %H:%M:%S");
+        const refTime = new Date("2020-03-20T00:00:00").getTime();
+
+        const config = {
+            area: {
+                lineWidth: 1.5,
+            },
+            axes: {
+                x: {
+                    grid: false,
+                },
+                y: {
+                    left: {
+                        label: {
+                            text: "Quantity",
+                        },
+                        ticks: {
+                            draw: false,
+                        },
+                    },
+                    right: {
+                        grid: false,
+                        label: {
+                            text: "Bells",
+                        },
+                        min: 0,
+                    },
+                },
+            },
+            bindTo: document.getElementById("chart"),
+            events: {
+                select: (from, to) => {
+                    alert(`Selected from ${formatDate(from)} to ${formatDate(to)}!`);
+                },
+            },
+            markers: [
+                {
+                    label: true,
+                    y: 30,
+                },
+                {
+                    color: "gold",
+                    dashed: true,
+                    label: "Buy value",
+                    y: 91,
+                    yAxis: "right",
+                },
+            ],
+            selection: {
+                color: "gold",
+                enabled: true,
+            },
+            series: [
+                {
+                    label: "Apples",
+                    points: [
+                        [refTime, 20],
+                        [refTime + 86400000, 40],
+                        [refTime + 86400000 * 2, 10],
+                        [refTime + 86400000 * 3, 30],
+                        [refTime + 86400000 * 4, 5],
+                        [refTime + 86400000 * 5, 20],
+                    ],
+                },
+                {
+                    label: "Pears",
+                    points: [
+                        [refTime, 10],
+                        [refTime + 86400000, 30],
+                        [refTime + 86400000 * 2, 50],
+                        [refTime + 86400000 * 3, 0],
+                        [refTime + 86400000 * 4, 10],
+                        [refTime + 86400000 * 5, 0],
+                    ],
+                },
+                {
+                    area: {
+                        curve: d3.curveMonotoneX,
+                        fill: false,
+                    },
+                    label: "Turnips Pricing",
+                    points: [
+                        [refTime, 64],
+                        [refTime + 86400000, 37],
+                        [refTime + 86400000 * 2, 127],
+                        [refTime + 86400000 * 3, 243],
+                        [refTime + 86400000 * 4, 221],
+                        [refTime + 86400000 * 5, 35],
+                    ],
+                    yAxis: "right",
+                },
+            ],
+            title: {
+                text: "ACNH",
+            },
+            tooltip: {
+                date: {
+                    format: formatDate,
+                },
+            },
+        };
+
+        const chart = new Boula(config);
+        chart.draw();
+
+        // Attach events
+        window.addEventListener("beforeunload", () => chart.destroy());
+    </script>
+</body>
+
+</html>

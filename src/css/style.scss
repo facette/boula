@@ -1,0 +1,90 @@
+.chart-container {
+    position: relative;
+
+    canvas {
+        cursor: default;
+        display: block;
+    }
+
+    .chart-cursor,
+    .chart-selection,
+    .chart-tooltip {
+        display: none;
+        position: absolute;
+        pointer-events: none;
+    }
+
+    .chart-cursor {
+        width: 1px;
+        will-change: left;
+    }
+
+    .chart-selection {
+        border: 1px solid;
+        border-radius: 0.2rem;
+        box-sizing: border-box;
+    }
+
+    .chart-tooltip {
+        border-radius: 0.2rem;
+        font-size: 0.75rem;
+        padding: 0.35rem 0.65rem;
+        will-change: left, top;
+
+        &.left {
+            transform: translateX(1rem);
+        }
+
+        &.right {
+            transform: translateX(-1rem);
+        }
+    }
+
+    .chart-tooltip-title {
+        line-height: 2;
+        white-space: nowrap;
+    }
+
+    .chart-tooltip-entry,
+    .chart-tooltip-total {
+        align-items: center;
+        display: flex;
+        line-height: 1.5;
+    }
+
+    .chart-tooltip-paint,
+    .chart-legend-paint {
+        height: 0.25rem;
+        margin-right: 0.5rem;
+        width: 0.65rem;
+    }
+
+    .chart-tooltip-label {
+        flex-grow: 1;
+        margin-right: 1.5rem;
+    }
+
+    .chart-tooltip-total {
+        justify-content: flex-end;
+        margin-top: 0.35rem;
+    }
+
+    .chart-legend {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+        font-size: 0.75rem;
+        user-select: none;
+    }
+
+    .chart-legend-entry {
+        align-items: center;
+        cursor: pointer;
+        display: flex;
+        margin-right: 1.25rem;
+
+        &.disabled {
+            opacity: 0.35;
+        }
+    }
+}
