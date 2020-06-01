@@ -74,6 +74,8 @@
         display: flex;
         flex-wrap: wrap;
         font-size: 0.75rem;
+        max-height: 2rem;
+        overflow-y: auto;
         user-select: none;
     }
 

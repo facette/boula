@@ -58,7 +58,7 @@ export default class Legend extends Component {
         applyCanvasSize(this.chart.canvas, this.chart.ctx, this.chart.height, this.chart.width);
     }
 
-    public afterDraw(): void {
+    public draw(): void {
         // Align legend with base by applying padding computed from current
         // layout.
         Object.assign(this.legend.style, {
