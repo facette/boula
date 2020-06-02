@@ -19,6 +19,21 @@ const tickMargin = 4;
 
 const tickSize = 8;
 
+export const colors = [
+    "#64b5f6",
+    "#455a64",
+    "#aed581",
+    "#ffb74d",
+    "#9575cd",
+    "#f06292",
+    "#ffd54f",
+    "#4db6ac",
+    "#4dd0e1",
+    "#e57373",
+    "#7986cb",
+    "#a1887f",
+];
+
 export default function resolveConfig(config: Config): Config {
     const style = getComputedStyle(config.bindTo);
 
@@ -101,20 +116,7 @@ export default function resolveConfig(config: Config): Config {
             background: {
                 color: backgroundColor,
             },
-            colors: [
-                "#64b5f6",
-                "#455a64",
-                "#aed581",
-                "#ffb74d",
-                "#9575cd",
-                "#f06292",
-                "#ffd54f",
-                "#4db6ac",
-                "#4dd0e1",
-                "#e57373",
-                "#7986cb",
-                "#a1887f",
-            ],
+            colors,
             cursor: {
                 enabled: true,
             },
