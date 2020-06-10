@@ -78,7 +78,7 @@ export default class Events extends Component {
             const x = me.pageX - this.domRect.left;
             const y = me.pageY - this.domRect.top;
 
-            if (this.inBoundaries(x, y)) {
+            if (ev.type !== "mouseleave" && this.inBoundaries(x, y)) {
                 Object.assign(data, {
                     date: this.axes.scales.x.invert(x),
                     x,
