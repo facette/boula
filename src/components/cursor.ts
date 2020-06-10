@@ -9,10 +9,13 @@ import {Config} from "../../types";
 
 import Component from "../component";
 import {toRGBA} from "../helpers/style";
+import Axes from "./axes";
 import Base from "./base";
 import Events, {EventData} from "./events";
 
 export default class Cursor extends Component {
+    private axes!: Axes;
+
     private base!: Base;
 
     private cursor!: HTMLDivElement;
@@ -28,6 +31,7 @@ export default class Cursor extends Component {
     }
 
     public init(): void {
+        this.axes = this.chart.components.axes as Axes;
         this.base = this.chart.components.base as Base;
         this.events = this.chart.components.events as Events;
 
@@ -56,6 +60,17 @@ export default class Cursor extends Component {
         this.chart.config.bindTo.removeChild(this.cursor);
     }
 
+    public move(date: Date | null): void {
+        if (date === null) {
+            if (!this.hidden) {
+                this.hide();
+            }
+            return;
+        }
+
+        this.show(this.axes.scales.x(date));
+    }
+
     public pause(state: boolean): void {
         this.paused = state;
         if (state) {
@@ -67,6 +82,8 @@ export default class Cursor extends Component {
         if (this.paused) {
             return;
         }
+
+        this.chart.config.events?.cursor?.(data.date ?? null);
 
         if (!data.date) {
             if (!this.hidden) {

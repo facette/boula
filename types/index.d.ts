@@ -63,6 +63,7 @@ export interface Config {
     };
     events?: {
         afterDraw?: () => void;
+        cursor?: (date: Date | null) => void;
         select?: (from: Date, to: Date) => void;
     };
     font?: {
