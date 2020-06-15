@@ -45,6 +45,10 @@ export default class Markers extends Component {
             let scale: d3.ScaleLinear<number, number>;
             const axis = marker.axis ?? "left";
 
+            if (!this.axes.state[axis]) {
+                return;
+            }
+
             if (axis === "left") {
                 format = this.axes.formatters.yLeft;
                 scale = this.axes.scales.yLeft;
