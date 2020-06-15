@@ -139,7 +139,7 @@ export default class Tooltip extends Component {
                 return;
             }
 
-            const axis = series.yAxis ?? "left";
+            const axis = series.axis ?? "left";
             const value = series.points[series.points ? bisector.left(series.points, date, 1) : -1]?.[1] ?? null;
 
             const el = this.values[index];

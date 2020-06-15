@@ -81,7 +81,7 @@ export default class Axes extends Component {
         // Loop through series to detect if Y axes are needed based on series
         // state.
         this.state = this.chart.config.series.reduce((axes, series) => {
-            const axis = series.yAxis ?? "left";
+            const axis = series.axis ?? "left";
             axes[axis] = axes[axis] !== true && series.disabled ? false : true;
             return axes;
         }, {} as AxesState);
@@ -308,7 +308,7 @@ export default class Axes extends Component {
             d3[fn](this.chart.data, (datum: Array<DataPoint>, index: number): number | undefined => {
                 if (
                     !this.chart.config.series[index].disabled &&
-                    (key === "x" || side === (this.chart.config.series[index].yAxis ?? "left"))
+                    (key === "x" || side === (this.chart.config.series[index].axis ?? "left"))
                 ) {
                     return d3[fn](datum, point => point[key]);
                 }

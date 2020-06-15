@@ -43,9 +43,9 @@ export default class Markers extends Component {
         this.chart.config.markers?.forEach(marker => {
             let format: Formatter<number | null>;
             let scale: d3.ScaleLinear<number, number>;
-            const yAxis = marker.yAxis ?? "left";
+            const axis = marker.axis ?? "left";
 
-            if (yAxis === "left") {
+            if (axis === "left") {
                 format = this.axes.formatters.yLeft;
                 scale = this.axes.scales.yLeft;
             } else {
@@ -54,11 +54,11 @@ export default class Markers extends Component {
             }
 
             const tickLabelDelta =
-                (this.chart.config.axes?.y?.[yAxis]?.ticks?.size as number) +
-                (this.chart.config.axes?.y?.[yAxis]?.ticks?.margin as number);
+                (this.chart.config.axes?.y?.[axis]?.ticks?.size as number) +
+                (this.chart.config.axes?.y?.[axis]?.ticks?.margin as number);
 
             const color = marker.color ?? fontColor;
-            const pos = scale(marker.y);
+            const pos = scale(marker.value);
             let xDelta = 0;
 
             if (marker.label) {
@@ -71,7 +71,7 @@ export default class Markers extends Component {
                     textBaseline: "middle",
                 });
 
-                const text = typeof marker.label === "boolean" ? format(marker.y) : marker.label;
+                const text = typeof marker.label === "boolean" ? format(marker.value) : marker.label;
                 const measure = measureText(ctx, text);
                 const width = measure.width + tickLabelDelta + markerPadding * 2;
 
@@ -80,7 +80,7 @@ export default class Markers extends Component {
                 // Ensure long labels doesn't go out of chart on its left
                 // and/or right sides by calculating a X initial translation
                 // before tracing label path.
-                if (yAxis === "left") {
+                if (axis === "left") {
                     xDelta = Math.max(width - this.axes.ticksWidth.left - markerPadding, 0);
                     if (xDelta > 0) {
                         ctx.translate(xDelta, 0);
@@ -116,7 +116,7 @@ export default class Markers extends Component {
 
                 // Draw label text centered in label
                 ctx.fillStyle = backgroundColor;
-                if (yAxis === "left") {
+                if (axis === "left") {
                     ctx.fillText(text, -width + markerPadding * 2, 0);
                 } else {
                     ctx.fillText(text, tickLabelDelta, 0);
@@ -136,7 +136,7 @@ export default class Markers extends Component {
                 ctx.setLineDash([4, 4]);
             }
 
-            if (yAxis === "left") {
+            if (axis === "left") {
                 ctx.moveTo(this.base.left + xDelta - markerPadding, pos);
                 ctx.lineTo(this.base.left + this.base.width, pos);
             } else {

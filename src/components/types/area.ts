@@ -92,7 +92,7 @@ export default class Area implements Component {
 
             const config = series.area ?? (this.chart.config.area as AreaConfig);
             const color = series.color ?? colors[index % colors.length];
-            const yAxis = series.yAxis ?? "left";
+            const axis = series.axis ?? "left";
 
             if (type === "area" && config.fill) {
                 ctx.beginPath();
@@ -107,7 +107,7 @@ export default class Area implements Component {
                     ctx.fillStyle = toRGBA(color, 0.35);
                 }
 
-                let area = this.generators[yAxis].area;
+                let area = this.generators[axis].area;
                 if (config.curve !== undefined) {
                     area = area?.curve(config.curve);
                 }
@@ -123,7 +123,7 @@ export default class Area implements Component {
                 strokeStyle: color,
             });
 
-            let line = this.generators[yAxis].line;
+            let line = this.generators[axis].line;
             if (config.curve !== undefined) {
                 line = line?.curve(config.curve);
             }

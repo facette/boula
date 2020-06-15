@@ -84,14 +84,14 @@
             markers: [
                 {
                     label: true,
-                    y: 30,
+                    value: 30,
                 },
                 {
+                    axis: "right",
                     color: "gold",
                     dashed: true,
                     label: "Buy value",
-                    y: 91,
-                    yAxis: "right",
+                    value: 91,
                 },
             ],
             selection: {
@@ -126,6 +126,7 @@
                         curve: d3.curveMonotoneX,
                         fill: false,
                     },
+                    axis: "right",
                     label: "Turnips Pricing",
                     points: [
                         [refTime, 64],
@@ -135,7 +136,6 @@
                         [refTime + 86400000 * 4, 221],
                         [refTime + 86400000 * 5, 35],
                     ],
-                    yAxis: "right",
                 },
             ],
             title: {

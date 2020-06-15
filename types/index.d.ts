@@ -133,21 +133,21 @@ export interface Ticks<T> {
 export type StackMode = "normal" | "percent" | false;
 
 export interface Marker {
+    axis?: "left" | "right";
     color?: string;
     dashed?: boolean;
     label?: boolean | string;
-    y: number;
-    yAxis?: "left" | "right";
+    value: number;
 }
 
 export interface Series {
     area?: AreaConfig;
+    axis?: "left" | "right";
     color?: string;
     disabled?: boolean;
     label?: string;
     points: Array<Point>;
     type?: ChartType;
-    yAxis?: "left" | "right";
 }
 
 export interface Point {
