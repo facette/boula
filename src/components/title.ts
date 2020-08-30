@@ -9,7 +9,7 @@ import Component from "../component";
 import {measureText} from "../helpers/canvas";
 import Base from "./base";
 
-export default class Title extends Component {
+export default class TitleComponent extends Component {
     private base!: Base;
 
     public init(): void {

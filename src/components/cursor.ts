@@ -13,7 +13,7 @@ import Axes from "./axes";
 import Base from "./base";
 import Events, {EventData} from "./events";
 
-export default class Cursor extends Component {
+export default class CursorComponent extends Component {
     private axes!: Axes;
 
     private base!: Base;

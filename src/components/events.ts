@@ -17,7 +17,7 @@ export interface EventData {
 
 type Callback = (ev: Event, data: EventData) => void;
 
-export default class Events extends Component {
+export default class EventsComponent extends Component {
     private axes!: Axes;
 
     private base!: Base;

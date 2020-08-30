@@ -5,6 +5,8 @@
  * is available at: https://opensource.org/licenses/BSD-3-Clause
  */
 
+import {CurveFactory} from "d3-shape";
+
 export class Chart {
     public canvas: HTMLCanvasElement;
     public components: Record<string, Component>;
@@ -95,7 +97,7 @@ export interface Config {
 }
 
 export interface AreaConfig {
-    curve?: d3.CurveFactory;
+    curve?: CurveFactory;
     fill?: "gradient" | boolean;
     lineWidth?: number;
 }

@@ -89,7 +89,7 @@ export default class Chart {
         // Register all components, then perform initial configuration and data
         // update.
         components.forEach(constructor => {
-            const name = constructor.name.toLowerCase();
+            const name = constructor.name.replace(/Component$/, "").toLowerCase();
             const state = (constructor as OptionalComponent).enabled?.(this.config) ?? true;
 
             if (state && !this.components[name]) {

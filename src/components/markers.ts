@@ -5,6 +5,8 @@
  * is available at: https://opensource.org/licenses/BSD-3-Clause
  */
 
+import {ScaleLinear} from "d3-scale";
+
 import {Formatter} from "../../types";
 
 import Component from "../component";
@@ -25,7 +27,7 @@ const pi05 = Math.PI * 0.5;
 
 const pi15 = Math.PI * 1.5;
 
-export default class Markers extends Component {
+export default class MarkersComponent extends Component {
     private axes!: Axes;
 
     private base!: Base;
@@ -42,7 +44,7 @@ export default class Markers extends Component {
 
         this.chart.config.markers?.forEach(marker => {
             let format: Formatter<number | null>;
-            let scale: d3.ScaleLinear<number, number>;
+            let scale: ScaleLinear<number, number>;
             const axis = marker.axis ?? "left";
 
             if (!this.axes.state[axis]) {

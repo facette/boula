@@ -8,9 +8,6 @@ module.exports = {
     context: path.resolve(__dirname, "src"),
     devtool: "source-map",
     entry: "./index",
-    externals: {
-        d3: "d3",
-    },
     mode: "development",
     module: {
         rules: [

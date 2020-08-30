@@ -15,7 +15,7 @@ import Cursor from "./cursor";
 import Events, {EventData} from "./events";
 import Tooltip from "./tooltip";
 
-export default class Selection extends Component {
+export default class SelectionComponent extends Component {
     private anchor: number | null = null;
 
     private axes!: Axes;

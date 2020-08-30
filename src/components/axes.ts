@@ -5,7 +5,9 @@
  * is available at: https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as d3 from "d3";
+import {max, min} from "d3-array";
+import {format} from "d3-format";
+import {ScaleLinear, ScaleTime, scaleLinear, scaleTime} from "d3-scale";
 
 import {Axis, DataPoint, Formatter, XAxis, YAxis} from "../../types";
 
@@ -21,9 +23,9 @@ interface Formatters {
 }
 
 interface Scales {
-    x: d3.ScaleTime<number, number>;
-    yLeft: d3.ScaleLinear<number, number>;
-    yRight: d3.ScaleLinear<number, number>;
+    x: ScaleTime<number, number>;
+    yLeft: ScaleLinear<number, number>;
+    yRight: ScaleLinear<number, number>;
 }
 
 interface TickWidths {
@@ -36,7 +38,7 @@ interface AxesState {
     right?: boolean;
 }
 
-export default class Axes extends Component {
+export default class AxesComponent extends Component {
     public formatters!: Formatters;
 
     public scales!: Scales;
@@ -62,10 +64,10 @@ export default class Axes extends Component {
         this.formatters = {
             x: this.chart.config.axes?.x?.ticks?.format as Formatter<Date>,
             yLeft: (this.chart.config.axes?.y?.stack === "percent"
-                ? d3.format(".0%")
+                ? format(".0%")
                 : this.chart.config.axes?.y?.left?.ticks?.format) as Formatter<number | null>,
             yRight: (this.chart.config.axes?.y?.stack === "percent"
-                ? d3.format(".0%")
+                ? format(".0%")
                 : this.chart.config.axes?.y?.right?.ticks?.format) as Formatter<number | null>,
         };
 
@@ -89,8 +91,7 @@ export default class Axes extends Component {
         // Initialize scale and update base layout according for each axis. The
         // order here matter as base layout updates will impact next scales
         // domains.
-        const yLeft = d3
-            .scaleLinear()
+        const yLeft = scaleLinear()
             .domain(this.domain(this.chart.config.axes?.y?.left as Axis, "y1", "left"))
             .range([this.base.top + this.base.height, this.base.top])
             .nice();
@@ -99,8 +100,7 @@ export default class Axes extends Component {
             this.updateBase(this.chart.config.axes.y.left, yLeft, this.formatters.yLeft, "left");
         }
 
-        const yRight = d3
-            .scaleLinear()
+        const yRight = scaleLinear()
             .domain(this.domain(this.chart.config.axes?.y?.right as Axis, "y1", "right"))
             .range([this.base.top + this.base.height, this.base.top])
             .nice();
@@ -109,8 +109,7 @@ export default class Axes extends Component {
             this.updateBase(this.chart.config.axes.y.right, yRight, this.formatters.yRight, "right");
         }
 
-        const x = d3
-            .scaleTime()
+        const x = scaleTime()
             .domain(this.domain(this.chart.config.axes?.x as Axis, "x"))
             .range([this.base.left, this.base.left + this.base.width]);
 
@@ -167,7 +166,7 @@ export default class Axes extends Component {
         return [min, max];
     }
 
-    private drawXAxis(axis: XAxis, scale: d3.ScaleTime<number, number>, format: Formatter<Date>): void {
+    private drawXAxis(axis: XAxis, scale: ScaleTime<number, number>, format: Formatter<Date>): void {
         const ctx = this.chart.ctx;
         const draw = axis?.ticks?.draw as boolean;
         const tickMargin = axis?.ticks?.margin as number;
@@ -200,7 +199,7 @@ export default class Axes extends Component {
 
     private drawYAxis(
         axis: YAxis,
-        scale: d3.ScaleLinear<number, number>,
+        scale: ScaleLinear<number, number>,
         format: Formatter<number | null>,
         side: "left" | "right",
     ): void {
@@ -270,7 +269,7 @@ export default class Axes extends Component {
 
     private updateBase(
         axis: YAxis,
-        scale: d3.ScaleLinear<number, number>,
+        scale: ScaleLinear<number, number>,
         format: Formatter<number | null>,
         side: "left" | "right",
     ): void {
@@ -303,20 +302,22 @@ export default class Axes extends Component {
         this.base.width -= xDelta;
     }
 
-    private valueFromData(fn: "max" | "min", key: "x" | "y0" | "y1", side?: "left" | "right"): number {
+    private valueFromData(type: "max" | "min", key: "x" | "y0" | "y1", side?: "left" | "right"): number {
+        const fn = type === "max" ? max : min;
+
         return (
-            d3[fn](this.chart.data, (datum: Array<DataPoint>, index: number): number | undefined => {
+            fn(this.chart.data, (datum: Array<DataPoint>, index: number): number | undefined => {
                 if (
                     !this.chart.config.series[index].disabled &&
                     (key === "x" || side === (this.chart.config.series[index].axis ?? "left"))
                 ) {
-                    return d3[fn](datum, point => point[key]);
+                    return fn(datum, point => point[key]);
                 }
 
                 return undefined;
             }) ??
             // Return defaults if undefined (min: 0, max: 1)
-            (fn === "max" ? 1 : 0)
+            (type === "max" ? 1 : 0)
         );
     }
 }

@@ -11,7 +11,7 @@ import Component from "../component";
 import {applyCanvasSize} from "../helpers/canvas";
 import Base from "./base";
 
-export default class Legend extends Component {
+export default class LegendComponent extends Component {
     private base!: Base;
 
     private legend!: HTMLDivElement;

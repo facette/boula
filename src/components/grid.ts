@@ -5,6 +5,8 @@
  * is available at: https://opensource.org/licenses/BSD-3-Clause
  */
 
+import {ScaleLinear, ScaleTime} from "d3-scale";
+
 import {XAxis, YAxis} from "../../types";
 
 import Component from "../component";
@@ -12,7 +14,7 @@ import {toRGBA} from "../helpers/style";
 import Axes from "./axes";
 import Base from "./base";
 
-export default class Grid extends Component {
+export default class GridComponent extends Component {
     private axes!: Axes;
 
     private base!: Base;
@@ -49,7 +51,7 @@ export default class Grid extends Component {
         ctx.restore();
     }
 
-    private drawXGrid(axis: XAxis, scale: d3.ScaleTime<number, number>): void {
+    private drawXGrid(axis: XAxis, scale: ScaleTime<number, number>): void {
         const ctx = this.chart.ctx;
 
         scale.ticks(axis.ticks?.count as number).forEach((tick, index, ticks) => {
@@ -63,7 +65,7 @@ export default class Grid extends Component {
         });
     }
 
-    private drawYGrid(axis: YAxis, scale: d3.ScaleLinear<number, number>): void {
+    private drawYGrid(axis: YAxis, scale: ScaleLinear<number, number>): void {
         const ctx = this.chart.ctx;
 
         scale.ticks(axis.ticks?.count as number).forEach((tick, index) => {

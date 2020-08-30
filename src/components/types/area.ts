@@ -5,7 +5,10 @@
  * is available at: https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as d3 from "d3";
+import {Area, CurveFactory, Line, area, line} from "d3-shape";
+import {ScaleLinear, ScaleTime} from "d3-scale";
+
+import {AreaConfig, Chart, ChartType, Component, Config, DataPoint} from "../../../types";
 
 import {toRGBA} from "../../helpers/style";
 import Axes from "../axes";
@@ -13,18 +16,18 @@ import Base from "../base";
 
 interface Generators {
     left: {
-        area?: d3.Area<DataPoint>;
-        line?: d3.Line<DataPoint>;
+        area?: Area<DataPoint>;
+        line?: Line<DataPoint>;
     };
     right: {
-        area?: d3.Area<DataPoint>;
-        line?: d3.Line<DataPoint>;
+        area?: Area<DataPoint>;
+        line?: Line<DataPoint>;
     };
 }
 
 const types = ["area", "line"];
 
-export default class Area implements Component {
+export default class AreaComponent implements Component {
     private axes!: Axes;
 
     private base!: Base;
@@ -135,10 +138,9 @@ export default class Area implements Component {
         ctx.restore();
     }
 
-    private area(xScale: d3.ScaleTime<number, number>, yScale: d3.ScaleLinear<number, number>): d3.Area<DataPoint> {
-        return d3
-            .area<DataPoint>()
-            .curve(this.chart.config.area?.curve as d3.CurveFactory)
+    private area(xScale: ScaleTime<number, number>, yScale: ScaleLinear<number, number>): Area<DataPoint> {
+        return area<DataPoint>()
+            .curve(this.chart.config.area?.curve as CurveFactory)
             .defined(point => point.y1 !== null && !isNaN(point.y1))
             .x(point => xScale(point.x))
             .y0(point => yScale(point.y0 || 0))
@@ -146,10 +148,9 @@ export default class Area implements Component {
             .context(this.chart.ctx);
     }
 
-    private line(xScale: d3.ScaleTime<number, number>, yScale: d3.ScaleLinear<number, number>): d3.Line<DataPoint> {
-        return d3
-            .line<DataPoint>()
-            .curve(this.chart.config.area?.curve as d3.CurveFactory)
+    private line(xScale: ScaleTime<number, number>, yScale: ScaleLinear<number, number>): Line<DataPoint> {
+        return line<DataPoint>()
+            .curve(this.chart.config.area?.curve as CurveFactory)
             .defined(point => point.y1 !== null && !isNaN(point.y1))
             .x(point => xScale(point.x))
             .y(point => yScale(point.y1 || 0))

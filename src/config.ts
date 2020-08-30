@@ -5,7 +5,11 @@
  * is available at: https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as d3 from "d3";
+import {rgb} from "d3-color";
+import {format} from "d3-format";
+import {curveLinear} from "d3-shape";
+import {timeDay, timeHour, timeMinute, timeMonth, timeSecond, timeYear} from "d3-time";
+import {timeFormat} from "d3-time-format";
 
 import {Config} from "../types";
 
@@ -42,7 +46,7 @@ export default function resolveConfig(config: Config): Config {
 
     while (backgroundColor === undefined && el !== null) {
         const value = getComputedStyle(el).backgroundColor;
-        if (d3.rgb(value).opacity === 0) {
+        if (rgb(value).opacity === 0) {
             el = el.parentNode as HTMLElement;
         } else {
             backgroundColor = value;
@@ -52,7 +56,7 @@ export default function resolveConfig(config: Config): Config {
     return merge<Config>(
         {
             area: {
-                curve: d3.curveLinear,
+                curve: curveLinear,
                 fill: true,
                 lineWidth: 1,
             },
@@ -64,19 +68,19 @@ export default function resolveConfig(config: Config): Config {
                         count: 10,
                         draw: true,
                         format: (date: Date): string =>
-                            (d3.timeSecond(date) < date
-                                ? d3.timeFormat(".%L")
-                                : d3.timeMinute(date) < date
-                                ? d3.timeFormat(":%S")
-                                : d3.timeHour(date) < date
-                                ? d3.timeFormat("%H:%M")
-                                : d3.timeDay(date) < date
-                                ? d3.timeFormat("%H:00")
-                                : d3.timeMonth(date) < date
-                                ? d3.timeFormat("%a %d")
-                                : d3.timeYear(date) < date
-                                ? d3.timeFormat("%B")
-                                : d3.timeFormat("%Y"))(date),
+                            (timeSecond(date) < date
+                                ? timeFormat(".%L")
+                                : timeMinute(date) < date
+                                ? timeFormat(":%S")
+                                : timeHour(date) < date
+                                ? timeFormat("%H:%M")
+                                : timeDay(date) < date
+                                ? timeFormat("%H:00")
+                                : timeMonth(date) < date
+                                ? timeFormat("%a %d")
+                                : timeYear(date) < date
+                                ? timeFormat("%B")
+                                : timeFormat("%Y"))(date),
                         margin: tickMargin,
                         size: tickSize,
                     },
@@ -91,7 +95,7 @@ export default function resolveConfig(config: Config): Config {
                         ticks: {
                             count: 3,
                             draw: true,
-                            format: d3.format(".2r"),
+                            format: format(".2r"),
                             margin: tickMargin,
                             size: tickSize,
                         },
@@ -105,7 +109,7 @@ export default function resolveConfig(config: Config): Config {
                         ticks: {
                             count: 3,
                             draw: true,
-                            format: d3.format(".2r"),
+                            format: format(".2r"),
                             margin: tickMargin,
                             size: tickSize,
                         },
@@ -137,7 +141,7 @@ export default function resolveConfig(config: Config): Config {
             },
             tooltip: {
                 date: {
-                    format: d3.timeFormat("%c"),
+                    format: timeFormat("%c"),
                 },
                 enabled: true,
             },

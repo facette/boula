@@ -7,7 +7,7 @@
 
 import Component from "../component";
 
-export default class Base extends Component {
+export default class BaseComponent extends Component {
     public height!: number;
 
     public left!: number;

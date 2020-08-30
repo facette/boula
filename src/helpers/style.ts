@@ -5,14 +5,14 @@
  * is available at: https://opensource.org/licenses/BSD-3-Clause
  */
 
-import {rgb} from "d3";
+import {rgb} from "d3-color";
 
 export function applyFontSize(ctx: CanvasRenderingContext2D, size: number): string {
     return `${size}px ${ctx.font.substr(ctx.font.indexOf(" ") + 1)}`;
 }
 
 export function toRGBA(input: string, opacity: number): string {
-    const c: d3.RGBColor = rgb(input);
+    const c = rgb(input);
     c.opacity = opacity;
     return c.toString();
 }

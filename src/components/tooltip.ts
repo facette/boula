@@ -5,7 +5,7 @@
  * is available at: https://opensource.org/licenses/BSD-3-Clause
  */
 
-import * as d3 from "d3";
+import {Bisector, bisector} from "d3-array";
 
 import {Config, Formatter, Point} from "../../types";
 
@@ -14,7 +14,7 @@ import {toRGBA} from "../helpers/style";
 import Axes from "./axes";
 import Events, {EventData} from "./events";
 
-export default class Tooltip extends Component {
+export default class TooltipComponent extends Component {
     private axes!: Axes;
 
     private tooltip!: HTMLDivElement;
@@ -127,7 +127,7 @@ export default class Tooltip extends Component {
             return;
         }
 
-        const bisector: d3.Bisector<Point, Date> = d3.bisector(p => p[0]);
+        const bisect: Bisector<Point, Date> = bisector(p => p[0]);
         const date = data.date;
         const hasTotal = filtered.length > 1;
         const totals = {left: 0, right: 0};
@@ -140,7 +140,7 @@ export default class Tooltip extends Component {
             }
 
             const axis = series.axis ?? "left";
-            const value = series.points[series.points ? bisector.left(series.points, date, 1) : -1]?.[1] ?? null;
+            const value = series.points[series.points ? bisect.left(series.points, date, 1) : -1]?.[1] ?? null;
 
             const el = this.values[index];
             if (el) {
