@@ -1,8 +1,8 @@
 const path = require("path");
 
+const babelMinifyPlugin = require("babel-minify-webpack-plugin");
 const htmlPlugin = require("html-webpack-plugin");
 const miniCSSExtractPlugin = require("mini-css-extract-plugin");
-const uglifyJSPlugin = require("uglifyjs-webpack-plugin");
 
 module.exports = {
     context: path.resolve(__dirname, "src"),
@@ -39,12 +39,14 @@ module.exports = {
     },
     optimization: {
         minimizer: [
-            new uglifyJSPlugin({
-                sourceMap: true,
-                uglifyOptions: {
-                    keep_fnames: true,
+            new babelMinifyPlugin(
+                {
+                    keepFnName: true,
                 },
-            }),
+                {
+                    sourceMap: true,
+                },
+            ),
         ],
     },
     output: {
